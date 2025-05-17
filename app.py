@@ -6,7 +6,7 @@ app_name = getenv("APP_NAME")
 
 st.set_page_config(page_title=app_name)
 st.title(app_name)
-st.caption("Your AI-powered assistant")
+st.caption("Your trusted government AI assistant")
 
 chat_session = qwen.WarisAssist(
     api_key=getenv("DASHSCOPE_API_KEY"),
