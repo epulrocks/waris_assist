@@ -31,7 +31,8 @@ class WarisAssist():
             print(f'Refer to: https://www.alibabacloud.com/help/en/model-studio/developer-reference/error-code')
             raise Exception(f'Error: {response.status_code} - {response.message}')
         elif response.output.text[:7] != "```json":
-            raise Exception(f"Response is not in JSON format\n{response.output.text}")
+            # raise Exception(f"Response is not in JSON format\n{response.output.text}")
+            raise Exception("Internal Server Error: Please resubmit your request or refresh the page")
         else:
             json_response = self.clean_json(response.output.text)
             self.session_id = response.output.session_id

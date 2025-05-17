@@ -2,7 +2,10 @@ import streamlit as st
 import qwen
 from os import getenv
 
-st.title("WarisAssist")
+app_name = getenv("APP_NAME")
+
+st.set_page_config(page_title=app_name)
+st.title(app_name)
 st.caption("Your AI-powered assistant")
 
 chat_session = qwen.WarisAssist(
