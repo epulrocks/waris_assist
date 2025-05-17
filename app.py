@@ -20,7 +20,10 @@ with st.sidebar:
 if "session_id" in st.session_state:
     chat_session.session_id = st.session_state.session_id
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Hello! I am WarisAssist. How can I help you?"}]
+    response = chat_session.chat("greet the user")
+    response_text = response["response"]
+    st.session_state.session_id = chat_session.session_id
+    st.session_state["messages"] = [{"role": "assistant", "content": response_text}]
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
