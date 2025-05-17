@@ -16,10 +16,10 @@ chat_session = qwen.WarisAssist(
 st.sidebar.title("Checklist")
 with st.sidebar:
     if "checklist" in st.session_state:
-        for checklist_set in st.session_state.checklist:
+        for j, checklist_set in enumerate(st.session_state.checklist):
             with st.expander(checklist_set['title']):
-                for item, checked in checklist_set['item'].items():
-                    st.checkbox(item, value=checked, on_change=None)
+                for i, (item, checked) in enumerate(checklist_set['item'].items()):
+                    st.checkbox(item, value=checked, on_change=None, key=f"{j+1}_{i}")
 if "session_id" in st.session_state:
     chat_session.session_id = st.session_state.session_id
 if "messages" not in st.session_state:
@@ -31,24 +31,31 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 if prompt := st.chat_input(accept_file=True):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    response = chat_session.chat(prompt)
-    print(response)
-    response_text = response["response"]
-    response_checklist = response.get("checklist", {})
-    if response_checklist:
-        item_list = response_checklist.get("item", [])
-        unchecked_items = {item: False for item in item_list}
-        response_checklist["item"] = unchecked_items
-        try:
-            st.session_state["checklist"].append(response_checklist)
-        except KeyError:
-            st.session_state["checklist"] = [response_checklist]
-        with st.sidebar:
-            with st.expander(response_checklist['title']):
-                for item, checked in response_checklist['item'].items():
-                    st.checkbox(item, value=checked, on_change=None)
-    st.session_state.session_id = chat_session.session_id
-    st.session_state.messages.append({"role": "assistant", "content": response_text})
-    st.chat_message("assistant").write(response_text)
+    if prompt["files"]:
+        st.image(prompt["files"][0], width=200)
+        if prompt['text']:
+            st.chat_message("user").write(prompt["text"])
+        # st.chat_message("assistant").write("Sorry, I cannot process images yet.")
+    else:
+        prompt = prompt["text"]
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
+        response = chat_session.chat(prompt)
+        print(response)
+        response_text = response["response"]
+        response_checklist = response.get("checklist", {})
+        if response_checklist:
+            item_list = response_checklist.get("item", [])
+            unchecked_items = {item: False for item in item_list}
+            response_checklist["item"] = unchecked_items
+            try:
+                st.session_state["checklist"].append(response_checklist)
+            except KeyError:
+                st.session_state["checklist"] = [response_checklist]
+            with st.sidebar:
+                with st.expander(response_checklist['title']):
+                    for i, (item, checked) in enumerate(response_checklist['item'].items()):
+                        st.checkbox(item, value=checked, on_change=None, key=f"0_{i}")
+        st.session_state.session_id = chat_session.session_id
+        st.session_state.messages.append({"role": "assistant", "content": response_text})
+        st.chat_message("assistant").write(response_text)
