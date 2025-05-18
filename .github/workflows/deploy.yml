@@ -29,7 +29,7 @@ jobs:
         run: |
           # Use the dedicated user if you set one up, otherwise keep root.
           # Change your_ssh_user to 'warisassist_user' if you created it.
-          ssh root@47.250.113.6 "
+          ssh action_deploy@47.250.113.6 "
             set -e # Exit immediately if a command exits with a non-zero status.
 
             echo 'Starting deployment...'
