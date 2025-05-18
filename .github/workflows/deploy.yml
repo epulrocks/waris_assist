@@ -19,11 +19,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # Inject your private key from GitHub Secrets
 
-      - name: Add SSH Host Key (Security Best Practice)
-        run: |
-          mkdir -p ~/.ssh # Ensure .ssh directory exists
-          ssh-keyscan -H 47.250.113.6 >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts # Set correct permissions
+      # - name: Add SSH Host Key (Security Best Practice)
+      #   run: |
+      #     mkdir -p ~/.ssh # Ensure .ssh directory exists
+      #     ssh-keyscan -H 47.250.113.6 >> ~/.ssh/known_hosts
+      #     chmod 600 ~/.ssh/known_hosts # Set correct permissions
 
       - name: Deploy Application via SSH
         run: |
