@@ -1,0 +1,48 @@
+name: WarisAssist Deployment
+
+on:
+  push:
+    branches:
+      - main # Trigger this workflow when code is pushed to the 'main' branch
+  workflow_dispatch: # Allows manual trigger of the workflow from GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use a GitHub-hosted Ubuntu runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Action to clone your repository's code
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0 # Recommended action for managing SSH keys
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # Inject your private key from GitHub Secrets
+
+      - name: Add SSH Host Key (Security Best Practice)
+        run: |
+          mkdir -p ~/.ssh # Ensure .ssh directory exists
+          ssh-keyscan -H 47.250.113.6 >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts # Set correct permissions
+
+      - name: Deploy Application via SSH
+        run: |
+          # Use the dedicated user if you set one up, otherwise keep root.
+          # Change your_ssh_user to 'warisassist_user' if you created it.
+          ssh root@47.250.113.6 "
+            set -e # Exit immediately if a command exits with a non-zero status.
+
+            echo 'Starting deployment...'
+            cd /warisassist || { echo 'Directory not found or not accessible!'; exit 1; }
+
+            git pull origin main # Pull the latest code from your main branch
+            echo 'Code pulled.'
+
+            # Restart the systemd service to apply changes and reinstall dependencies
+            # If using a non-root user, ensure NOPASSWD is configured for this specific command in sudoers
+            sudo systemctl restart warisassist.service
+            echo 'WarisAssist service restarted.'
+
+            # Optional: Check status (output won't be visible in Actions logs directly for this)
+            # sudo systemctl status warisassist.service --no-pager
+          "
