@@ -1,4 +1,4 @@
-# Waris Assist
+<img width="543" alt="image" src="https://github.com/user-attachments/assets/9ffc12bd-9676-4350-964f-71c9f4f10601" /># Waris Assist
 > Hackathon project by Team Rush 01 - consisting of Saiful, Rais, Harith and Athif - during Alibaba Cloud Malaysia AI Hackathon 2025 at Affin Tower, TRX from 17 - 18 May 2025.
 
 **Let us assist you in your darkest hour.**
@@ -13,7 +13,7 @@ This process can stretch across months to a full year, especially in cases invol
 
 We realised that essential information was scattered across various government agency websites or SOP documents, and that most of these websites were not easy to navigate.
 
-![Problem](<INSERT_IMAGE_URL>)  
+![Problem](<Images/Waris_problem.png>)  
 
 ## Our Solution: WarisAssist
 
@@ -25,12 +25,12 @@ WarisAssist is an intelligent assistant designed to ease this burden. It offers 
 - **Support multilingual interactions**, e.g. Bahasa Malaysia and English.
 - **Provide accurate structured information**, like up-to-date contact details and office addresses for relevant government departments.
 
-![Solution](<INSERT_IMAGE_URL>)  
+![Solution](<Images/Waris_solution.png>)  
 ## Demo
 
 📺 **Watch our presentation**: [YouTube Video](<https://www.youtube.com/watch?v=aufRZzs8sug>)  
 📸 **Screenshots**:  
-![Screenshot of Assistant UI](<INSERT_IMAGE_URL>)  
+![Screenshot of Assistant UI](<Images/Waris_UI.png>)  
 
 
 ## Technical Architecture
@@ -42,7 +42,7 @@ Our prototype is built on a simple stack:
 - **Deployment**: Hosted on an ECS instance (during Hackathon period).
 - **Data**: Structured datasets (e.g., contact directories, office locations) with unstructured data (e.g., legal guides, SOPs) to generate context-aware and reliable responses.
 
-![Technical Architecture](<INSERT_IMAGE_URL>)  
+![Technical Architecture](<Images/Waris_technical.png>)  
 
 ### Future Plans
 
@@ -59,6 +59,6 @@ Our prototype is built on a simple stack:
 
 We envision JPN (National Registration Department) as a key implementation partner, given their central role in death registration processes.
 
-![Impact](<INSERT_IMAGE_URL>)  
+![Impact](<Images/Waris_impact.png>)  
 
 
