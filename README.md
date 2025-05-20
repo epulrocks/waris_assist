@@ -1,4 +1,4 @@
-<img width="543" alt="image" src="https://github.com/user-attachments/assets/9ffc12bd-9676-4350-964f-71c9f4f10601" /># Waris Assist
+# Waris Assist
 > Hackathon project by Team Rush 01 - consisting of Saiful, Rais, Harith and Athif - during Alibaba Cloud Malaysia AI Hackathon 2025 at Affin Tower, TRX from 17 - 18 May 2025.
 
 **Let us assist you in your darkest hour.**
